@@ -16,5 +16,11 @@ namespace IT_Cshap_DB
         {
             InitializeComponent();
         }
+
+        private void frm_menu_Load(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+            this.Show();
+        }
     }
 }

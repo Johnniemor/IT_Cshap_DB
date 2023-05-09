@@ -86,6 +86,7 @@
             this.btn_clear.TabIndex = 6;
             this.btn_clear.Text = "ລ້າງທັງໝົດ";
             this.btn_clear.UseVisualStyleBackColor = false;
+            this.btn_clear.Click += new System.EventHandler(this.btn_clear_Click);
             // 
             // btn_logout
             // 
@@ -103,6 +104,7 @@
             this.btn_logout.TabIndex = 5;
             this.btn_logout.Text = "ອອກລະບົບ";
             this.btn_logout.UseVisualStyleBackColor = false;
+            this.btn_logout.Click += new System.EventHandler(this.btn_logout_Click);
             // 
             // btn_login
             // 
