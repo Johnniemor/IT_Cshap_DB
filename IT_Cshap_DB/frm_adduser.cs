@@ -29,9 +29,20 @@ namespace IT_Cshap_DB
             try
             {
                 sql = "SELECT MAX(user_id) FROM tbl_login";
-
-
-
+                cmd = new SqlCommand(sql, conn);
+                conn.Open();
+                var maxid = cmd.ExecuteScalar() as string;
+                if (maxid == null)
+                {
+                    txt_id.Text = "U-000001";
+                }
+                else
+                {
+                    int intval = int.Parse(maxid.Substring(2, 6));
+                    intval++;
+                    txt_id.Text = string.Format("U-{0:000000}", intval);
+                }
+                conn.Close();
             }catch (Exception ex)
             {
                 MessageBox.Show("" + ex.Message);
