@@ -219,6 +219,7 @@
             this.btn_save.TabIndex = 4;
             this.btn_save.Text = "ບັນທຶກ";
             this.btn_save.UseVisualStyleBackColor = false;
+            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
             // btn_delete
             // 
@@ -297,7 +298,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "frm_adduser";
             this.Text = "frm_adduser";
-            this.Load += new System.EventHandler(this.frm_adduser_Load);
+            //this.Load += new System.EventHandler(this.frm_adduser_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

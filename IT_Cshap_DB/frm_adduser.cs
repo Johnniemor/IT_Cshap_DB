@@ -49,9 +49,28 @@ namespace IT_Cshap_DB
             }
         }
 
-        private void frm_adduser_Load(object sender, EventArgs e)
+        private void btn_save_Click(object sender, EventArgs e)
         {
 
+            sql = "INSERT INTO tbl_login (user_id , user_name , user_password , user_status) " +
+                "Values (@user_id , @user_name , @user_password , @user_status)";
+            conn.Open();
+            cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@user_id" , txt_id.Text);
+            cmd.Parameters.AddWithValue("@user_name" , txt_name.Text);
+            cmd.Parameters.AddWithValue("@user_password", txt_pass.Text);
+            cmd.Parameters.AddWithValue("@user_status" , cmb_status);
+
+            cmd.ExecuteNonQuery();
+            MessageBox.Show("ບັນທຶກຂໍ້ມູນສຳເລັດ" , "ສຳເລັດ");
+            conn.Close();
+            Auto_id();
+            txt_name.Clear();
+            txt_pass.Clear();
+            cmb_status.Text = "";
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dataGridView1.DataSource = dt;
         }
     }
 }

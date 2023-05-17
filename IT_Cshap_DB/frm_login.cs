@@ -50,9 +50,9 @@ namespace IT_Cshap_DB
                     if(dt.Rows.Count > 0)
                     {
                         MessageBox.Show("ຍິນດີຕ້ອນຮັບເຂົ້າສູ່ລະບົບ" , "ສຳເລັດ");
-                        frm_menu Menu = new frm_menu();
+                        frm_adduser Menu = new frm_adduser();
                         Menu.Show();
-                        this.Hide();
+                        Application.Exit();
                         txt_username.Text = "";
                         txt_password.Text = "";
                         txt_username.Select();
@@ -80,6 +80,11 @@ namespace IT_Cshap_DB
         {
             txt_username.Clear();
             txt_password.Clear();
+        }
+
+        private void frm_login_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
