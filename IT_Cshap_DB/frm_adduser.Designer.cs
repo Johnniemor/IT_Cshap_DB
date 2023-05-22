@@ -139,6 +139,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmb_status.Font = new System.Drawing.Font("Phetsarath OT", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_status.FormattingEnabled = true;
+            this.cmb_status.Items.AddRange(new object[] {
+            "user",
+            "admin"});
             this.cmb_status.Location = new System.Drawing.Point(167, 276);
             this.cmb_status.Name = "cmb_status";
             this.cmb_status.Size = new System.Drawing.Size(483, 43);
@@ -160,7 +163,7 @@
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -178,6 +181,7 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(650, 155);
             this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
             // 
             // btn_search
             // 
@@ -205,6 +209,7 @@
             this.btn_show.TabIndex = 3;
             this.btn_show.Text = "ສະແດງ";
             this.btn_show.UseVisualStyleBackColor = false;
+            this.btn_show.Click += new System.EventHandler(this.btn_show_Click);
             // 
             // btn_save
             // 
@@ -298,7 +303,6 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "frm_adduser";
             this.Text = "frm_adduser";
-            //this.Load += new System.EventHandler(this.frm_adduser_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

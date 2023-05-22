@@ -59,7 +59,7 @@ namespace IT_Cshap_DB
             cmd.Parameters.AddWithValue("@user_id" , txt_id.Text);
             cmd.Parameters.AddWithValue("@user_name" , txt_name.Text);
             cmd.Parameters.AddWithValue("@user_password", txt_pass.Text);
-            cmd.Parameters.AddWithValue("@user_status" , cmb_status);
+            cmd.Parameters.AddWithValue("@user_status" , cmb_status.Text);
 
             cmd.ExecuteNonQuery();
             MessageBox.Show("ບັນທຶກຂໍ້ມູນສຳເລັດ" , "ສຳເລັດ");
@@ -71,6 +71,29 @@ namespace IT_Cshap_DB
             DataTable dt = new DataTable();
             da.Fill(dt);
             dataGridView1.DataSource = dt;
+        }
+
+        private void btn_show_Click(object sender, EventArgs e)
+        {
+            conn.Open();
+            sql = "SELECT user_id as 'id' , user_name as 'name' , user_password as 'password' , user_status as 'status' FROM tbl_login ORDER BY user_id ASC";
+            cmd = new SqlCommand(sql, conn);
+            DataTable dt = new DataTable();
+            da = new SqlDataAdapter(cmd);
+            da.Fill(dt);
+            dataGridView1.DataSource = dt;
+            conn.Close();
+        }
+
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if(dataGridView1.CurrentRow.Index != -1)
+            {
+                txt_id.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                txt_name.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                txt_pass.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+                cmb_status.SelectedItem = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            }
         }
     }
 }
