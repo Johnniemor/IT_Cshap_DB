@@ -117,5 +117,26 @@ namespace IT_Cshap_DB
             da.Fill(dt);
             dataGridView1.DataSource = dt;
         }
+
+        private void btn_delete_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("ທ່ານຕ້ອງການລົບຂໍ້ມູນ ຫຼື ບໍ່?", "ຄຳເຕືອນ", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                conn.Open();
+                sql = "DELETE FROM tbl_login WHERE user_id = '" + txt_id.Text + "'";
+                cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("ລົບຂໍ້ມູນສຳເລັດ", "ສຳເລັດ");
+                conn.Close();
+                Auto_id();
+                txt_name.Clear();
+                txt_pass.Clear();
+                cmb_status.Text = "";
+                DataTable dt = new DataTable();
+                da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+                dataGridView1.DataSource = dt;
+            }
+        }
     }
 }
