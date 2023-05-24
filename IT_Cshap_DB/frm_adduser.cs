@@ -76,7 +76,7 @@ namespace IT_Cshap_DB
         private void btn_show_Click(object sender, EventArgs e)
         {
             conn.Open();
-            sql = "SELECT user_id as 'id' , user_name as 'name' , user_password as 'password' , user_status as 'status' FROM tbl_login ORDER BY user_id ASC";
+            sql = "SELECT user_id as 'ລະຫັດຜູ້ໃຊ້' , user_name as 'ຊື່ຜູ້ໃຊ້' , user_password as 'ລະຫັດຜ່ານ' , user_status as 'ສະຖານະຜູ້ໃຊ້' FROM tbl_login ORDER BY user_id";
             cmd = new SqlCommand(sql, conn);
             DataTable dt = new DataTable();
             da = new SqlDataAdapter(cmd);
@@ -94,6 +94,28 @@ namespace IT_Cshap_DB
                 txt_pass.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
                 cmb_status.SelectedItem = dataGridView1.CurrentRow.Cells[3].Value.ToString();
             }
+        }
+
+        private void btn_update_Click(object sender, EventArgs e)
+        {
+            conn.Open();
+            sql = "UPDATE tbl_login SET user_name = @user_name , user_password = @user_password , user_status = @user_status WHERE user_id = '"+txt_id.Text+"'";
+            cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@user_id", txt_id.Text);
+            cmd.Parameters.AddWithValue("@user_name", txt_name.Text);
+            cmd.Parameters.AddWithValue("@user_password", txt_pass.Text);
+            cmd.Parameters.AddWithValue("@user_status", cmb_status.Text);
+            cmd.ExecuteNonQuery();
+            MessageBox.Show("ແກ້ໄຂຂໍ້ມູນສຳເລັດ", "ສຳເລັດ");
+            conn.Close();
+            Auto_id();
+            txt_name.Clear();
+            txt_pass.Clear();
+            cmb_status.Text = "";
+            DataTable dt = new DataTable();
+            da = new SqlDataAdapter(cmd);
+            da.Fill(dt);
+            dataGridView1.DataSource = dt;
         }
     }
 }

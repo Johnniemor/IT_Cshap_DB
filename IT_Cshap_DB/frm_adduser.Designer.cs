@@ -253,6 +253,7 @@
             this.btn_update.TabIndex = 5;
             this.btn_update.Text = "ແກ້ໄຂ";
             this.btn_update.UseVisualStyleBackColor = false;
+            this.btn_update.Click += new System.EventHandler(this.btn_update_Click);
             // 
             // txt_search
             // 
