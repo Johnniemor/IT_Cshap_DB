@@ -39,7 +39,7 @@
             this.cmb_status = new System.Windows.Forms.ComboBox();
             this.txt_id = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btn_search = new System.Windows.Forms.Button();
+            this.btn_clear = new System.Windows.Forms.Button();
             this.btn_show = new System.Windows.Forms.Button();
             this.btn_save = new System.Windows.Forms.Button();
             this.btn_delete = new System.Windows.Forms.Button();
@@ -164,7 +164,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
@@ -183,18 +182,19 @@
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
             // 
-            // btn_search
+            // btn_clear
             // 
-            this.btn_search.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btn_clear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_search.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_search.Font = new System.Drawing.Font("Phetsarath OT", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_search.Location = new System.Drawing.Point(670, 366);
-            this.btn_search.Name = "btn_search";
-            this.btn_search.Size = new System.Drawing.Size(193, 155);
-            this.btn_search.TabIndex = 2;
-            this.btn_search.Text = "ຄົ້ນຫາ";
-            this.btn_search.UseVisualStyleBackColor = true;
+            this.btn_clear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_clear.Font = new System.Drawing.Font("Phetsarath OT", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_clear.Location = new System.Drawing.Point(670, 366);
+            this.btn_clear.Name = "btn_clear";
+            this.btn_clear.Size = new System.Drawing.Size(193, 155);
+            this.btn_clear.TabIndex = 2;
+            this.btn_clear.Text = "ລ້າງຂໍ້ມູນ";
+            this.btn_clear.UseVisualStyleBackColor = true;
+            this.btn_clear.Click += new System.EventHandler(this.btn_clear_Click);
             // 
             // btn_show
             // 
@@ -265,6 +265,7 @@
             this.txt_search.Name = "txt_search";
             this.txt_search.Size = new System.Drawing.Size(191, 45);
             this.txt_search.TabIndex = 6;
+            this.txt_search.TextChanged += new System.EventHandler(this.txt_search_TextChanged);
             // 
             // label5
             // 
@@ -300,7 +301,7 @@
             this.Controls.Add(this.btn_update);
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.btn_show);
-            this.Controls.Add(this.btn_search);
+            this.Controls.Add(this.btn_clear);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
             this.Name = "frm_adduser";
@@ -325,7 +326,7 @@
         private System.Windows.Forms.ComboBox cmb_status;
         private System.Windows.Forms.TextBox txt_id;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button btn_search;
+        private System.Windows.Forms.Button btn_clear;
         private System.Windows.Forms.Button btn_show;
         private System.Windows.Forms.Button btn_save;
         private System.Windows.Forms.Button btn_delete;

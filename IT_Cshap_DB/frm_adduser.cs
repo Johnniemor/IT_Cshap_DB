@@ -43,10 +43,20 @@ namespace IT_Cshap_DB
                     txt_id.Text = string.Format("U-{0:000000}", intval);
                 }
                 conn.Close();
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("" + ex.Message);
             }
+            
+        }
+
+        public void header_table(string e)
+        {
+            dataGridView1.Columns[0].HeaderText = "ລະຫັດຜູ້ໃຊ້";
+            dataGridView1.Columns[1].HeaderText = "ຊື່ຜູ້ໃຊ້";
+            dataGridView1.Columns[2].HeaderText = "ລະຫັດຜ່ານ";
+            dataGridView1.Columns[3].HeaderText = "ສະຖານະ";
         }
 
         private void btn_save_Click(object sender, EventArgs e)
@@ -59,8 +69,8 @@ namespace IT_Cshap_DB
             cmd.Parameters.AddWithValue("@user_id" , txt_id.Text);
             cmd.Parameters.AddWithValue("@user_name" , txt_name.Text);
             cmd.Parameters.AddWithValue("@user_password", txt_pass.Text);
-            cmd.Parameters.AddWithValue("@user_status" , cmb_status.Text);
-
+            cmd.Parameters.AddWithValue("@user_status" , cmb_status.SelectedItem);
+            header_table("");
             cmd.ExecuteNonQuery();
             MessageBox.Show("ບັນທຶກຂໍ້ມູນສຳເລັດ" , "ສຳເລັດ");
             conn.Close();
@@ -76,12 +86,13 @@ namespace IT_Cshap_DB
         private void btn_show_Click(object sender, EventArgs e)
         {
             conn.Open();
-            sql = "SELECT user_id as 'ລະຫັດຜູ້ໃຊ້' , user_name as 'ຊື່ຜູ້ໃຊ້' , user_password as 'ລະຫັດຜ່ານ' , user_status as 'ສະຖານະຜູ້ໃຊ້' FROM tbl_login ORDER BY user_id";
+            sql = "SELECT user_id , user_name , user_password , user_status FROM tbl_login ORDER BY user_id";
             cmd = new SqlCommand(sql, conn);
             DataTable dt = new DataTable();
             da = new SqlDataAdapter(cmd);
             da.Fill(dt);
             dataGridView1.DataSource = dt;
+            header_table("");
             conn.Close();
         }
 
@@ -98,24 +109,25 @@ namespace IT_Cshap_DB
 
         private void btn_update_Click(object sender, EventArgs e)
         {
-            conn.Open();
-            sql = "UPDATE tbl_login SET user_name = @user_name , user_password = @user_password , user_status = @user_status WHERE user_id = '"+txt_id.Text+"'";
-            cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("@user_id", txt_id.Text);
-            cmd.Parameters.AddWithValue("@user_name", txt_name.Text);
-            cmd.Parameters.AddWithValue("@user_password", txt_pass.Text);
-            cmd.Parameters.AddWithValue("@user_status", cmb_status.Text);
-            cmd.ExecuteNonQuery();
-            MessageBox.Show("ແກ້ໄຂຂໍ້ມູນສຳເລັດ", "ສຳເລັດ");
-            conn.Close();
-            Auto_id();
-            txt_name.Clear();
-            txt_pass.Clear();
-            cmb_status.Text = "";
-            DataTable dt = new DataTable();
-            da = new SqlDataAdapter(cmd);
-            da.Fill(dt);
-            dataGridView1.DataSource = dt;
+            if (MessageBox.Show("ທ່ານຕ້ອງການແກ້ໄຂຂໍ້ມູນ ຫຼື ບໍ່?", "ຄຳເຕືອນ", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                conn.Open();
+                sql = "UPDATE tbl_login SET user_name = @user_name , user_password = @user_password , user_status = @user_status WHERE user_id = '" + txt_id.Text + "'";
+                cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@user_id", txt_id.Text);
+                cmd.Parameters.AddWithValue("@user_name", txt_name.Text);
+                cmd.Parameters.AddWithValue("@user_password", txt_pass.Text);
+                cmd.Parameters.AddWithValue("@user_status", cmb_status.SelectedItem);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("ແກ້ໄຂຂໍ້ມູນສຳເລັດ", "ສຳເລັດ");
+                conn.Close();
+                header_table("");
+                Auto_id();
+                DataTable dt = new DataTable();
+                da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+                dataGridView1.DataSource = dt;
+            }     
         }
 
         private void btn_delete_Click(object sender, EventArgs e)
@@ -128,6 +140,7 @@ namespace IT_Cshap_DB
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("ລົບຂໍ້ມູນສຳເລັດ", "ສຳເລັດ");
                 conn.Close();
+                header_table("");
                 Auto_id();
                 txt_name.Clear();
                 txt_pass.Clear();
@@ -137,6 +150,39 @@ namespace IT_Cshap_DB
                 da.Fill(dt);
                 dataGridView1.DataSource = dt;
             }
+        }
+
+
+        private void txt_search_TextChanged(object sender, EventArgs e)
+        {
+            conn.Open();
+            string searchValue = txt_search.Text.Trim();
+            string sqlstr = "";
+
+            if (searchValue != "")
+            {
+                sqlstr = " WHERE user_name LIKE @user_name OR user_password LIKE @user_pwd";
+            }
+            string sql = "SELECT * FROM tbl_login " + sqlstr;
+            cmd.Parameters.AddWithValue("@user_name", "%" + searchValue + "%");
+            cmd.Parameters.AddWithValue("@user_pwd", "%" + searchValue + "%");
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            da = new SqlDataAdapter(cmd);
+            cmd = new SqlCommand(sql, conn);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dataGridView1.DataSource = dt;
+            
+        }
+
+        private void btn_clear_Click(object sender, EventArgs e)
+        {
+            txt_id.Clear();
+            txt_name.Clear();
+            txt_pass.Clear();
+            txt_search.Clear();
+            cmb_status.SelectedItem = null;
         }
     }
 }
