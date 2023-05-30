@@ -22,6 +22,7 @@ namespace IT_Cshap_DB
         SqlConnection conn = new SqlConnection(@"Data Source=DESKTOP-4JF77HQ\SQLEXPRESS;Initial Catalog=Project2023;Integrated Security=True");
         SqlCommand cmd;
         SqlDataAdapter da;
+        DataTable dt;
         string sql;
 
         public void Auto_id()
@@ -48,7 +49,6 @@ namespace IT_Cshap_DB
             {
                 MessageBox.Show("" + ex.Message);
             }
-            
         }
 
         public void header_table(string e)
@@ -78,7 +78,7 @@ namespace IT_Cshap_DB
             txt_name.Clear();
             txt_pass.Clear();
             cmb_status.Text = "";
-            DataTable dt = new DataTable();
+            dt = new DataTable();
             da.Fill(dt);
             dataGridView1.DataSource = dt;
         }
@@ -88,7 +88,7 @@ namespace IT_Cshap_DB
             conn.Open();
             sql = "SELECT user_id , user_name , user_password , user_status FROM tbl_login ORDER BY user_id";
             cmd = new SqlCommand(sql, conn);
-            DataTable dt = new DataTable();
+            dt = new DataTable();
             da = new SqlDataAdapter(cmd);
             da.Fill(dt);
             dataGridView1.DataSource = dt;
@@ -123,7 +123,7 @@ namespace IT_Cshap_DB
                 conn.Close();
                 header_table("");
                 Auto_id();
-                DataTable dt = new DataTable();
+                dt = new DataTable();
                 da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
                 dataGridView1.DataSource = dt;
@@ -152,7 +152,6 @@ namespace IT_Cshap_DB
             }
         }
 
-
         private void txt_search_TextChanged(object sender, EventArgs e)
         {
             conn.Open();
@@ -170,10 +169,9 @@ namespace IT_Cshap_DB
             conn.Close();
             da = new SqlDataAdapter(cmd);
             cmd = new SqlCommand(sql, conn);
-            DataTable dt = new DataTable();
+            dt = new DataTable();
             da.Fill(dt);
             dataGridView1.DataSource = dt;
-            
         }
 
         private void btn_clear_Click(object sender, EventArgs e)
@@ -183,6 +181,11 @@ namespace IT_Cshap_DB
             txt_pass.Clear();
             txt_search.Clear();
             cmb_status.SelectedItem = null;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            header_table("");
         }
     }
 }
