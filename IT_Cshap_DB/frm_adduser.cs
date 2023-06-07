@@ -61,19 +61,17 @@ namespace IT_Cshap_DB
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-
-            sql = "INSERT INTO tbl_login (user_id , user_name , user_password , user_status) " +
-                "Values (@user_id , @user_name , @user_password , @user_status)";
             conn.Open();
+            sql = "INSERT INTO tbl_login (user_id , user_name , user_password , user_status) Values (@user_id , @user_name , @user_password , @user_status)";
             cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@user_id" , txt_id.Text);
             cmd.Parameters.AddWithValue("@user_name" , txt_name.Text);
             cmd.Parameters.AddWithValue("@user_password", txt_pass.Text);
-            cmd.Parameters.AddWithValue("@user_status" , cmb_status.SelectedItem);
-            header_table("");
+            cmd.Parameters.AddWithValue("@user_status", cmb_status.SelectedItem);
             cmd.ExecuteNonQuery();
             MessageBox.Show("ບັນທຶກຂໍ້ມູນສຳເລັດ" , "ສຳເລັດ");
             conn.Close();
+            header_table("");
             Auto_id();
             txt_name.Clear();
             txt_pass.Clear();
@@ -134,13 +132,13 @@ namespace IT_Cshap_DB
         {
             if (MessageBox.Show("ທ່ານຕ້ອງການລົບຂໍ້ມູນ ຫຼື ບໍ່?", "ຄຳເຕືອນ", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                conn.Open();
+                
                 sql = "DELETE FROM tbl_login WHERE user_id = '" + txt_id.Text + "'";
+                conn.Open();
                 cmd = new SqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("ລົບຂໍ້ມູນສຳເລັດ", "ສຳເລັດ");
+                check_dgv();
                 conn.Close();
-                header_table("");
                 Auto_id();
                 txt_name.Clear();
                 txt_pass.Clear();
@@ -149,6 +147,28 @@ namespace IT_Cshap_DB
                 da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
                 dataGridView1.DataSource = dt;
+            }
+        }
+
+        private void check_dgv()
+        {
+            int i = dataGridView1.RowCount;
+            if (i > 0)
+            {
+                MessageBox.Show("ລົບຂໍ້ມູນສຳເລັດ", "ສຳເລັດ");
+                txt_name.Clear();
+                txt_name.Clear();
+                txt_pass.Clear();
+                cmb_status.SelectedItem = null;
+                txt_name.Select();
+            }
+            else
+            {
+                MessageBox.Show("ບໍ່ມີຂໍ້ມູນໃຫ້ທ່ານລົບ", "ຄຳເຕືອນ");
+                txt_name.Clear();
+                txt_pass.Clear();
+                cmb_status.SelectedItem = null;
+                txt_name.Select();
             }
         }
 
